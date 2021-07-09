@@ -27,7 +27,9 @@ The following buttons send ADS requests from the server. In this sample the serv
 # Testing the AdsServerSample with a client
 
 Run the AdsSymbolicServerSample application
-The AmsPort is 27000. An easy way to test the server is using the [**TcXaeMgmt** Powershell module](https://www.powershellgallery.com/packages/TcXaeMgmt).
+The AmsPort is 27000. An easy way to test the server is using the
+[**TcXaeMgmt** Powershell module](https://www.powershellgallery.com/packages/TcXaeMgmt).
+
 Alternatively, an AdsClient application can be written with the
 [Beckhoff.TwinCAT.Ads Package](https://www.nuget.org/packages/Beckhoff.TwinCAT.Ads/)
  that connects to the AmsNetId and port.
@@ -47,8 +49,8 @@ The module is available in different flavours to support
 
 and different TwinCAT (Tc2 and Tc3) versions.
 
-(TcXaeMgmt Package)[https://www.powershellgallery.com/packages/TcXaeMgmt]
-(Beckhoff Documentation)[https://infosys.beckhoff.com/content/1033/tc3_ads_ps_tcxaemgmt/3972231819.html?id=8731138690123386389]
+[TcXaeMgmt Package](https://www.powershellgallery.com/packages/TcXaeMgmt)
+[Beckhoff Documentation](https://infosys.beckhoff.com/content/1033/tc3_ads_ps_tcxaemgmt/3972231819.html?id=8731138690123386389)
 
 Please check the installation hints and install the module via PowershellGet Package Manager:
 ```powershell
