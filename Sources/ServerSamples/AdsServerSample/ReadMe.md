@@ -47,10 +47,9 @@ The module is available in different flavours to support
 - Windows Powershell >= 4.0
 - Powershell (Core) >= 6.0
 
-and different TwinCAT (Tc2 and Tc3) versions.
-
-[TcXaeMgmt Package](https://www.powershellgallery.com/packages/TcXaeMgmt)
-[Beckhoff Documentation](https://infosys.beckhoff.com/content/1033/tc3_ads_ps_tcxaemgmt/3972231819.html?id=8731138690123386389)
+and different TwinCAT (Tc2 and Tc3) versions.  
+<br>[TcXaeMgmt Package](https://www.powershellgallery.com/packages/TcXaeMgmt)  
+[Beckhoff Documentation](https://infosys.beckhoff.com/content/1033/tc3_ads_ps_tcxaemgmt/3972231819.html?id=8731138690123386389)</br>
 
 Please check the installation hints and install the module via PowershellGet Package Manager:
 ```powershell
