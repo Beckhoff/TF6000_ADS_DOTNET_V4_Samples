@@ -320,5 +320,4 @@ public class AdsSampleServer : TcAdsServer
     {
         _gui.AppendLoggerList("Received Read Write Confirmation");
     }
-    
-}
+ }

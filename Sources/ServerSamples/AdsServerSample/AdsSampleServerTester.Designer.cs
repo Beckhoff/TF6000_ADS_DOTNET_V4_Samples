@@ -30,7 +30,7 @@
             this._buttonConnect = new System.Windows.Forms.Button();
             this._buttonDisconnect = new System.Windows.Forms.Button();
             this._loggerListbox = new System.Windows.Forms.ListBox();
-            this._ReadDevInfoButton = new System.Windows.Forms.Button();
+            this._readDeviceInfoButton = new System.Windows.Forms.Button();
             this._writeControlButton = new System.Windows.Forms.Button();
             this._readButton = new System.Windows.Forms.Button();
             this._readStateButton = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@
             this._buttonConnect.Size = new System.Drawing.Size(134, 25);
             this._buttonConnect.TabIndex = 0;
             this._buttonConnect.Text = "Connect";
-            this._buttonConnect.Click += new System.EventHandler(this._buttonConnect_Click);
+            this._buttonConnect.Click += new System.EventHandler(this.OnConnectClicked);
             // 
             // _buttonDisconnect
             // 
@@ -56,24 +56,23 @@
             this._buttonDisconnect.Size = new System.Drawing.Size(134, 25);
             this._buttonDisconnect.TabIndex = 2;
             this._buttonDisconnect.Text = "Disconnect";
-            this._buttonDisconnect.Click += new System.EventHandler(this._buttonDisconnect_Click);
+            this._buttonDisconnect.Click += new System.EventHandler(this.OnDisconnectClicked);
             // 
             // _loggerListbox
             // 
-            //this._loggerListbox.ItemHeight = 16;
             this._loggerListbox.Location = new System.Drawing.Point(166, 12);
             this._loggerListbox.Name = "_loggerListbox";
-            this._loggerListbox.Size = new System.Drawing.Size(512, 324);
+            this._loggerListbox.Size = new System.Drawing.Size(512, 316);
             this._loggerListbox.TabIndex = 3;
             // 
-            // _ReadDevInfoButton
+            // _readDeviceInfoButton
             // 
-            this._ReadDevInfoButton.Location = new System.Drawing.Point(14, 86);
-            this._ReadDevInfoButton.Name = "_ReadDevInfoButton";
-            this._ReadDevInfoButton.Size = new System.Drawing.Size(134, 25);
-            this._ReadDevInfoButton.TabIndex = 4;
-            this._ReadDevInfoButton.Text = "Dev Info";
-            this._ReadDevInfoButton.Click += new System.EventHandler(this._ReadDevInfoButton_Click);
+            this._readDeviceInfoButton.Location = new System.Drawing.Point(14, 86);
+            this._readDeviceInfoButton.Name = "_readDeviceInfoButton";
+            this._readDeviceInfoButton.Size = new System.Drawing.Size(134, 25);
+            this._readDeviceInfoButton.TabIndex = 4;
+            this._readDeviceInfoButton.Text = "Dev Info";
+            this._readDeviceInfoButton.Click += new System.EventHandler(this.OnReadDevInfoClicked);
             // 
             // _writeControlButton
             // 
@@ -82,7 +81,7 @@
             this._writeControlButton.Size = new System.Drawing.Size(134, 25);
             this._writeControlButton.TabIndex = 5;
             this._writeControlButton.Text = "Write Control";
-            this._writeControlButton.Click += new System.EventHandler(this._writeContolButton_Click);
+            this._writeControlButton.Click += new System.EventHandler(this.OnWriteControlClicked);
             // 
             // _readButton
             // 
@@ -91,7 +90,7 @@
             this._readButton.Size = new System.Drawing.Size(134, 25);
             this._readButton.TabIndex = 5;
             this._readButton.Text = "Read";
-            this._readButton.Click += new System.EventHandler(this._readButton_Click);
+            this._readButton.Click += new System.EventHandler(this.OnReadClicked);
             // 
             // _readStateButton
             // 
@@ -100,7 +99,7 @@
             this._readStateButton.Size = new System.Drawing.Size(134, 25);
             this._readStateButton.TabIndex = 6;
             this._readStateButton.Text = "Read State";
-            this._readStateButton.Click += new System.EventHandler(this._readStateButton_Click);
+            this._readStateButton.Click += new System.EventHandler(this.OnReadStateClicked);
             // 
             // _writeButton
             // 
@@ -109,7 +108,7 @@
             this._writeButton.Size = new System.Drawing.Size(134, 25);
             this._writeButton.TabIndex = 6;
             this._writeButton.Text = "Write";
-            this._writeButton.Click += new System.EventHandler(this._writeButton_Click);
+            this._writeButton.Click += new System.EventHandler(this.OnWriteClicked);
             // 
             // _readWriteButton
             // 
@@ -118,7 +117,7 @@
             this._readWriteButton.Size = new System.Drawing.Size(134, 25);
             this._readWriteButton.TabIndex = 7;
             this._readWriteButton.Text = "Read Write";
-            this._readWriteButton.Click += new System.EventHandler(this._readWriteButton_Click);
+            this._readWriteButton.Click += new System.EventHandler(this.OnReadWriteClicked);
             // 
             // _addNotButton
             // 
@@ -127,7 +126,7 @@
             this._addNotButton.Size = new System.Drawing.Size(134, 25);
             this._addNotButton.TabIndex = 8;
             this._addNotButton.Text = "Add Notification";
-            this._addNotButton.Click += new System.EventHandler(this._addNotButton_Click);
+            this._addNotButton.Click += new System.EventHandler(this.OnAddNotificationClicked);
             // 
             // _delNotButton
             // 
@@ -136,7 +135,7 @@
             this._delNotButton.Size = new System.Drawing.Size(134, 25);
             this._delNotButton.TabIndex = 9;
             this._delNotButton.Text = "Del Notification";
-            this._delNotButton.Click += new System.EventHandler(this._delNotButton_Click);
+            this._delNotButton.Click += new System.EventHandler(this.OnDeleteNotificationClicked);
             // 
             // AdsSampleServerTester
             // 
@@ -149,11 +148,13 @@
             this.Controls.Add(this._readStateButton);
             this.Controls.Add(this._readButton);
             this.Controls.Add(this._writeControlButton);
-            this.Controls.Add(this._ReadDevInfoButton);
+            this.Controls.Add(this._readDeviceInfoButton);
             this.Controls.Add(this._loggerListbox);
             this.Controls.Add(this._buttonDisconnect);
             this.Controls.Add(this._buttonConnect);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AdsSampleServerTester";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "SampleAdsServer";
             this.Closing += new System.ComponentModel.CancelEventHandler(this.AdsSampleServerTester_Closing);
             this.ResumeLayout(false);
@@ -165,7 +166,7 @@
         private System.Windows.Forms.Button _buttonConnect;
         private System.Windows.Forms.Button _buttonDisconnect;
         private System.Windows.Forms.ListBox _loggerListbox;
-        private System.Windows.Forms.Button _ReadDevInfoButton;
+        private System.Windows.Forms.Button _readDeviceInfoButton;
         private System.Windows.Forms.Button _writeControlButton;
         private System.Windows.Forms.Button _readButton;
         private System.Windows.Forms.Button _readStateButton;

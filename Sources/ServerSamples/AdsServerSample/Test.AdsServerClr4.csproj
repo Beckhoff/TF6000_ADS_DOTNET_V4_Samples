@@ -100,10 +100,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ReadMe.md" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Beckhoff.TwinCAT.Ads">
-      <Version>4.4.13</Version>
+      <Version>4.4.*</Version>
     </PackageReference>
   </ItemGroup>
 </Project>

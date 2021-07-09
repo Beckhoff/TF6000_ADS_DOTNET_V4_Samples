@@ -8,31 +8,39 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 		TeamRelease|Any CPU = TeamRelease|Any CPU
+		TeamRelease|x64 = TeamRelease|x64
+		TeamRelease|x86 = TeamRelease|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{929F4EF0-4652-432C-9C14-998F618F1444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{929F4EF0-4652-432C-9C14-998F618F1444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{929F4EF0-4652-432C-9C14-998F618F1444}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{929F4EF0-4652-432C-9C14-998F618F1444}.Debug|x64.Build.0 = Debug|Any CPU
+		{929F4EF0-4652-432C-9C14-998F618F1444}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{929F4EF0-4652-432C-9C14-998F618F1444}.Debug|x86.Build.0 = Debug|Any CPU
 		{929F4EF0-4652-432C-9C14-998F618F1444}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{929F4EF0-4652-432C-9C14-998F618F1444}.Release|Any CPU.Build.0 = Release|Any CPU
+		{929F4EF0-4652-432C-9C14-998F618F1444}.Release|x64.ActiveCfg = Release|Any CPU
+		{929F4EF0-4652-432C-9C14-998F618F1444}.Release|x64.Build.0 = Release|Any CPU
+		{929F4EF0-4652-432C-9C14-998F618F1444}.Release|x86.ActiveCfg = Release|Any CPU
+		{929F4EF0-4652-432C-9C14-998F618F1444}.Release|x86.Build.0 = Release|Any CPU
 		{929F4EF0-4652-432C-9C14-998F618F1444}.TeamRelease|Any CPU.ActiveCfg = TeamRelease|Any CPU
 		{929F4EF0-4652-432C-9C14-998F618F1444}.TeamRelease|Any CPU.Build.0 = TeamRelease|Any CPU
+		{929F4EF0-4652-432C-9C14-998F618F1444}.TeamRelease|x64.ActiveCfg = TeamRelease|Any CPU
+		{929F4EF0-4652-432C-9C14-998F618F1444}.TeamRelease|x64.Build.0 = TeamRelease|Any CPU
+		{929F4EF0-4652-432C-9C14-998F618F1444}.TeamRelease|x86.ActiveCfg = TeamRelease|Any CPU
+		{929F4EF0-4652-432C-9C14-998F618F1444}.TeamRelease|x86.Build.0 = TeamRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {847B0169-F064-4AD5-9E0A-C9ECA462E466}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 1
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://nt-teamfd02:8080/tfs/defaultcollection
-		SccProjectUniqueName0 = Test.AdsServerClr4.csproj
-		SccProjectName0 = .
-		SccAuxPath0 = http://nt-teamfd02:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 	EndGlobalSection
 EndGlobal
