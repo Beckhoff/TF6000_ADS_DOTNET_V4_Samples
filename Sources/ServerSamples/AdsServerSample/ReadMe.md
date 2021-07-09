@@ -6,7 +6,7 @@ Open the solution file Test.AdsServerClr4.sln for the .NET 4 platform. The class
 Build and start the sample application.
 The sample server can be controlled via the following GUI:
 
-![Ads Sample Server](/AdsSampleServer.png)
+![Ads Sample Server](./AdsSampleServer.png)
 
 The first two buttons on the left control the connectivity of the server:
 
