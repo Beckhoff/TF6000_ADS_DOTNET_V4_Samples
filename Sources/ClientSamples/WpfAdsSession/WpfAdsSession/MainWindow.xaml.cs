@@ -152,12 +152,16 @@ namespace AdsSessionTest
                 _connection.AdsStateChanged += _connection_AdsStateChanged;
                 _connection.AdsSymbolVersionChanged += _connection_AdsSymbolVersionChanged;
             }
-            catch (Exception ex)
+            catch (AdsErrorException ex)
             {
-                Debug.Fail("Can happen when Target doesn't support AdsState ",ex.Message);
+                if (ex.ErrorCode == AdsErrorCode.DeviceServiceNotSupported)
+                {
+                    AddMessage(string.Format("Target {0} Port: {1} doesn't support state change notifications!",target,port));
+                }
+                else
+                    throw ex;
             }
             _connection.ConnectionStateChanged += _connection_ConnectionStatusChanged;
-
             _timer.Start();
 
             AddMessage(string.Format("Connected to {0} Port: {1}", target, port));

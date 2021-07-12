@@ -175,13 +175,21 @@ namespace AdsSessionTest
                      select new SymbolViewModel(element, this))
                      .ToList<SymbolViewModel>());
             }
-            else if (_symbol is IPointerInstance)
+            else if (_symbol is IPointerInstance && !_symbol.IsRecursive)
             {
                 IPointerInstance pi = (IPointerInstance)_symbol;
 
-                _subSymbols = new ReadOnlyCollection<SymbolViewModel>(
-                    new SymbolViewModel[] { new SymbolViewModel(pi.Reference, this) }
-                   );
+
+                try
+                {
+                    _subSymbols = new ReadOnlyCollection<SymbolViewModel>(
+                        new SymbolViewModel[] { new SymbolViewModel(pi.Reference, this) }
+                       );
+                }
+                catch
+                { 
+                    //Ignore errors (pi.Reference actually throws ArgumentOutOfRangeException )
+                }
             }
             //else if (_symbol is IReferenceInstance)
             //{
