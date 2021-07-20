@@ -25,9 +25,9 @@ public partial class AdsSampleServerTester : Form
     {
         InitializeComponent();
 
-        // Create a new AdsSampleServer instance listening on Ads port 27000.
-
-        _server = new AdsSampleServer(27000,"AdsSampleServer", this);
+        // Create a new AdsSampleServer instance listening on Ads port 32768.
+        // The user area for AmsPorts is >= 0x8000.
+        _server = new AdsSampleServer(0x8000,"AdsSampleServer", this);
         _loggerAppender = new LoggerAppender(AppendLoggerListDelegate);
         enableDisableControls();
     }
