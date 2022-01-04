@@ -175,11 +175,11 @@ namespace Sample01
                 AdsStream writeStream = new AdsStream(sizeof(uint));
                 AdsBinaryWriter writer = new AdsBinaryWriter(writeStream);
                 writer.Write(valueToWrite);
-                adsClient.Write(0x4020, 0x0, writeStream, 0, 4);
+                adsClient.Write((uint)0x4020, (uint)0x0, writeStream, 0, 4);
 
                 // Read an UINT32 Value
                 AdsStream readStream = new AdsStream(sizeof(uint));
-                adsClient.Read(0x4020, 0x0, readStream, 0, 4);
+                adsClient.Read((uint)0x4020, (uint)0x0, readStream, 0, 4);
                 readStream.Position = 0;
                 AdsBinaryReader reader = new AdsBinaryReader(readStream);
                 valueToRead = reader.ReadUInt32();
