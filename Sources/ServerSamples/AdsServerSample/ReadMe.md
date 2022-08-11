@@ -3,6 +3,12 @@
 The directory SampleServer contains Visual Studio projects with a sample implementation of an ADS server.
 
 Open the solution file Test.AdsServerClr4.sln for the .NET 4 platform. The class AdsSampleServer implements a simple ADS server that is connected with a simple GUI.
+
+The recommended platforms for building and debugging are dependent on the Twincat Installation
+
+- TwinCAT3: 'Any CPU' what leads to an binary that runs in 64-Bit Images as well as in 32-Bit images
+- TwinCAT2: 'X86' **Be aware that the native base components (TcAmsServer.dll) is only installed as 32-Bit Version - even in the Twincat 2.11 Engineering 64-Bit version. Therefore the sample can only be used in a 32-Bit process!**
+
 Build and start the sample application.
 The sample server can be controlled via the following GUI:
 
