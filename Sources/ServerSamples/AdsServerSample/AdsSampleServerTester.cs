@@ -26,8 +26,11 @@ public partial class AdsSampleServerTester : Form
         InitializeComponent();
 
         // Create a new AdsSampleServer instance listening on Ads port 32768.
-        // The user area for AmsPorts is >= 0x8000.
-        _server = new AdsSampleServer(0x8000,"AdsSampleServer", this);
+        // The user area for AmsPorts is 25000 < 25999
+        _server = new AdsSampleServer(25000,"AdsSampleServer", this);
+        
+        // The unfixed port 0x8000 (-1) can only be used from TwinCAT 3 on
+        //_server = new AdsSampleServer(0x8000, "AdsSampleServer", this);
         _loggerAppender = new LoggerAppender(AppendLoggerListDelegate);
         enableDisableControls();
     }

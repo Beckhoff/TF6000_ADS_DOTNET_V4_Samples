@@ -12,115 +12,114 @@ using TwinCAT.Ads;
  * Extend the TcAdsServer class to implement your own ADS server.
  */
 public class AdsSampleServer : TcAdsServer 
-    {
-
-        private byte[] _dataBuffer = { 1, 2, 3, 4 };
-        private AdsState _localAdsState = AdsState.Run;
-        private ushort _localDeviceState = 0;
-        private Hashtable _notificationTable = new Hashtable();
-        private uint _currentNotificationHandle = 0;
-        private AdsSampleServerTester _gui;
+{
+    private byte[] _dataBuffer = { 1, 2, 3, 4 };
+    private AdsState _localAdsState = AdsState.Run;
+    private ushort _localDeviceState = 0;
+    private Hashtable _notificationTable = new Hashtable();
+    private uint _currentNotificationHandle = 0;
+    private AdsSampleServerTester _gui;
        
-         /* Instanstiate an ADS server with a fix ADS port asigned by the ADS router.
-         */
-        public AdsSampleServer(ushort port, string portName, AdsSampleServerTester gui) 
-                                            : base(port, portName)
-        {
-            // custom intialization  
-            _gui = gui;
-        }
+    /* Instanstiate an ADS server with a fix ADS port asigned by the ADS router.
+    */
+    public AdsSampleServer(ushort port, string portName, AdsSampleServerTester gui) 
+                                        : base(port, portName)
+    {
+        // custom intialization  
+        _gui = gui;
+    }
 	
-        /*
-         * Instanstiate an ADS server with an unfixed ADS port asigned by the ADS router.
-         */
-        public AdsSampleServer(string portName, AdsSampleServerTester gui)
-            : base(portName)
+    /*
+    * Instanstiate an ADS server with an unfixed ADS port asigned by the ADS router.
+    */
+    public AdsSampleServer(string portName, AdsSampleServerTester gui)
+        : base(portName)
+    {
+        // custom intialization  
+        _gui = gui;
+    }
+
+    /* Overwrite the indication methods of the TcAdsServer class for the services your ADS server
+     * provides. They are called upon incoming requests. All indications that are not overwritten in
+     * this class return the ADS DeviceServiceNotSupported error code to the requestor.
+     * This server replys on: ReadDeviceInfo, Read, Write and ReadState requests. 
+    */
+    public override void AdsReadDeviceInfoInd(AmsAddress rAddr,
+                                                uint invokeId)
+    {
+        AdsVersion version = new AdsVersion();
+        version.Version = 1;
+        version.Revision = 0;
+        version.Build = 111;
+
+        // Send a response to the requestor
+
+        AdsReadDeviceInfoRes(rAddr,                 // requestor's AMS address     
+                            invokeId,               // invoke id provided by requestor
+                            AdsErrorCode.NoError,   // ADS error code
+                            "C#_TestServer",        // name of this server
+                            version);               // version of this server
+    }
+
+    public override void AdsWriteInd(AmsAddress rAddr,
+                            uint invokeId,
+                            uint indexGroup,
+                            uint indexOffset,
+                            uint cbLength,
+                            byte[] data)
+    {
+        AdsErrorCode adsError = AdsErrorCode.NoError;
+
+        switch (indexGroup) /* use index group (and offset) to distiguish between the services
+                                of this server */
         {
-            // custom intialization  
-            _gui = gui;
-        }
+            case 0x10000:    
+                if (cbLength == 4 && data.Length == 4)
+                {
+                    Array.Copy(data, _dataBuffer, 4);
+                }
+                else
+                {
+                    adsError = AdsErrorCode.DeviceInvalidParam;
+                }
+                break;
+			case 0x20000: /* used for the PLC Sample */
+				if (cbLength == 4 && data.Length == 4)
+				{
+					BinaryReader binReader = new BinaryReader(new MemoryStream(data));
+					_gui.AppendLoggerList(String.Format("PLC Counter: {0}", binReader.ReadUInt32()));
+				}
+				break;
 
-        /* Overwrite the indication methods of the TcAdsServer class for the services your ADS server
-         * provides. They are called upon incoming requests. All indications that are not overwritten in
-         * this class return the ADS DeviceServiceNotSupported error code to the requestor.
-         * This server replys on: ReadDeviceInfo, Read, Write and ReadState requests. 
-         */
-        public override void AdsReadDeviceInfoInd(AmsAddress rAddr,
-                                                  uint invokeId)
-        {
-            AdsVersion version = new AdsVersion();
-            version.Version = 1;
-            version.Revision = 0;
-            version.Build = 111;
-
-            // Send a response to the requestor
-
-            AdsReadDeviceInfoRes(rAddr,                 // requestor's AMS address     
-                                invokeId,               // invoke id provided by requestor
-                                AdsErrorCode.NoError,   // ADS error code
-                                "C#_TestServer",        // name of this server
-                                version);               // version of this server
-        }
-
-        public override void AdsWriteInd(AmsAddress rAddr,
-                                uint invokeId,
-                                uint indexGroup,
-                                uint indexOffset,
-                                uint cbLength,
-                                byte[] data)
-        {
-            AdsErrorCode adsError = AdsErrorCode.NoError;
-
-            switch (indexGroup) /* use index group (and offset) to distiguish between the services
-                                    of this server */
-            {
-                case 0x10000:    
-                    if (cbLength == 4 && data.Length == 4)
-                    {
-                        Array.Copy(data, _dataBuffer, 4);
-                    }
-                    else
-                    {
-                        adsError = AdsErrorCode.DeviceInvalidParam;
-                    }
+            default:        /* other services are not supported */
+                    adsError = AdsErrorCode.DeviceServiceNotSupported;
                     break;
-				case 0x20000: /* used for the PLC Sample */
-					if (cbLength == 4 && data.Length == 4)
-					{
-						BinaryReader binReader = new BinaryReader(new MemoryStream(data));
-						_gui.AppendLoggerList(String.Format("PLC Counter: {0}", binReader.ReadUInt32()));
-					}
-					break;
 
-                default:        /* other services are not supported */
-                        adsError = AdsErrorCode.DeviceServiceNotSupported;
-                        break;
-
-            }
-
-            // Send a response to the requestor
-
-            AdsWriteRes(rAddr,          // requestor's AMS address   
-                        invokeId,       // invoke id provided by requestor
-                        adsError);      // ADS error code
         }
 
-        public override void AdsReadInd(AmsAddress rAddr,
-                               uint invokeId,
-                               uint indexGroup,
-                               uint indexOffset,
-                               uint cbLength)
-        {
-            /* Distinguish between services like in AdsWriteInd */
+        // Send a response to the requestor
 
-            // Send a response to the requestor
+        AdsWriteRes(rAddr,          // requestor's AMS address   
+                    invokeId,       // invoke id provided by requestor
+                    adsError);      // ADS error code
+    }
+
+    public override void AdsReadInd(AmsAddress rAddr,
+                            uint invokeId,
+                            uint indexGroup,
+                            uint indexOffset,
+                            uint cbLength)
+    {
+        /* Distinguish between services like in AdsWriteInd */
+
+        // Send a response to the requestor
            
-            AdsReadRes(rAddr,                   // requestor's AMS address
-                        invokeId,               // invoke id provided by requestor
-                        AdsErrorCode.NoError,   // ADS error code
-                        4,                      // length of the data buffer
-                        _dataBuffer);            // data buffer
-        }
+        AdsReadRes(rAddr,                   // requestor's AMS address
+                    invokeId,               // invoke id provided by requestor
+                    AdsErrorCode.NoError,   // ADS error code
+                    4,                      // length of the data buffer
+                    _dataBuffer);            // data buffer
+    }
 
     public override void AdsReadStateInd(AmsAddress rAddr,
                                         uint invokeId)
